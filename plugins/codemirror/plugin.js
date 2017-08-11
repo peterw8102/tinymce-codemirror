@@ -7,16 +7,20 @@
 
 /*jshint unused:false */
 /*global tinymce:true */
+var currentPath = (document.currentScript ?
+				 document.currentScript.src :
+				 Array.prototype.slice.call(document.getElementsByTagName('script')).pop().src)
+				 .replace(/[^\/]+$/,'');
 
 tinymce.PluginManager.requireLangPack('codemirror');
 
 tinymce.PluginManager.add('codemirror', function(editor, url) {
 
 	function showSourceEditor() {
-        
+
         editor.focus();
         editor.selection.collapse(true);
-        
+
         // Insert caret marker
         if (editor.settings.codemirror.saveCursorPosition) {
             editor.selection.setContent('<span style="display: none;" class="CmCaReT">&#x0;</span>');
@@ -31,10 +35,9 @@ tinymce.PluginManager.add('codemirror', function(editor, url) {
         if (editor.settings.codemirror.width) {
             codemirrorHeight = editor.settings.codemirror.height;
         }
-        
 		var config = {
 			title: 'HTML source code',
-			url: url + '/source.html',
+			url: currentPath+'/source.html',
 			width: codemirrorWidth,
 			height: codemirrorHeight,
 			resizable : true,
